@@ -7,6 +7,20 @@ from sklearn.tree import DecisionTreeRegressor
 
 
 def train_lr(df):
+    '''
+    Trains a linear regression model to predict coffee ratings 
+    based on price per 100g.
+        
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe containing coffee data, including 100g_USD and rating columns.
+    
+    Returns
+    -------
+    model_1 : sklearn linear regression model
+        Trained linear regression model using 100g_USD to predict rating.
+    '''
     df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
 
     features = ['100g_USD']
@@ -23,6 +37,19 @@ def train_lr(df):
     return model_1
 
 def roast_category(roast):
+    '''
+    Maps all different roast categories to numerical values.
+    
+    Parameters
+    ----------
+    roast : pandas.Series
+        Series containing roast category strings from roast column in dataframe.
+        
+    Returns
+    -------
+    Mapped pandas.Series
+        Series with roast categories mapped to numerical values to be applied to the roast column.
+    '''
     roast_cat = {'Light' : 1, 
                  'Medium-Light' : 2, 
                  'Medium' : 3, 
@@ -32,6 +59,22 @@ def roast_category(roast):
     return roast.map(roast_cat)
 
 def train_dtr(df):
+    '''
+    Trains a decision tree regression model to predict coffee ratings 
+    based on price per 100g and roast category.
+        
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe containing coffee data, including 100g_USD, 
+        roast, and rating columns.
+    
+    Returns
+    -------
+    model_2 : sklearn decision tree regression model
+        Trained decision tree regression model using 100g_USD and 
+        roast category to predict rating.
+    '''
     df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
     
     features = ['100g_USD', 'roast']
