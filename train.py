@@ -49,7 +49,8 @@ def train_dtr(df):
     model_2.fit(X, y)
 
     with open('./model_2.pickle', 'wb') as f:
-        pickle.dump(model_2, f)
+        pickle.dump(train_dtr, f)
     
     return model_2
+
 
