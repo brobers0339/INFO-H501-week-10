@@ -99,9 +99,9 @@ if __name__ == '__main__':
     df = pd.read_csv(url)
     
     # Train and save model_1
-    train_lr(df)
+    lr = train_lr(df)
     
     # Train and save model_2
-    train_dtr(df)
+    dtr = train_dtr(df)
 
 
