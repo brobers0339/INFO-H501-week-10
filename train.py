@@ -33,18 +33,14 @@ def roast_category(roast):
 
 def train_dtr(df):
     df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
-    print(df_train.columns)
-    if 'roast' in df_train.columns:
-        features = ['100g_USD', 'roast']
-        df_train['roast_cat'] = roast_category(df_train['roast'])
-        y = df_train['rating']
-
-    else:
-        features = df_train.columns
-        df_train['roast_cat'] = df_train['roast_cat'].fillna(0).astype(int)
-        y = df_train.values
-
+    
+    features = ['100g_USD', 'roast']
+    
+    # Map roast categories to numerical values
+    df_train['roast'] = roast_category(df_train['roast'])
+    
     X = df_train[features]
+    y = df_train['rating']
 
     model_2 = DecisionTreeRegressor()
     model_2.fit(X, y)
