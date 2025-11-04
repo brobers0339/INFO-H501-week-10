@@ -37,20 +37,32 @@ def train_dtr(df):
     if 'roast' in df_train.columns:
         features = ['100g_USD', 'roast']
         df_train['roast_cat'] = roast_category(df_train['roast'])
+        y = df_train['rating']
 
     else:
         features = df_train.columns
         df_train['roast_cat'] = df_train['roast_cat'].fillna(0).astype(int)
+        y = df_train.values
 
     X = df_train[features]
-    y = df_train.values
 
     model_2 = DecisionTreeRegressor()
     model_2.fit(X, y)
 
     with open('./model_2.pickle', 'wb') as f:
-        pickle.dump(train_dtr, f)
+        pickle.dump(model_2, f)
     
     return model_2
+
+# Load data and train models when script is run
+if __name__ == '__main__':
+    url = 'https://raw.githubusercontent.com/leontoddjohnson/datasets/refs/heads/main/data/coffee_analysis.csv'
+    df = pd.read_csv(url)
+    
+    # Train and save model_1
+    train_lr(df)
+    
+    # Train and save model_2
+    train_dtr(df)
 
 
